@@ -59,7 +59,7 @@ export default function MainForm(props) {
           <Form.Check type="checkbox" label="No soy un robot" />
         </Form.Group>
 
-        <Button variant="primary" type="submit" onClick={(e) => sendData(e)}>
+        <Button variant="secondary" type="submit" onClick={(e) => sendData(e)}>
           Agregar
         </Button>
       </Form>
