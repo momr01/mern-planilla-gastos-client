@@ -26,6 +26,7 @@ export default function HomePage() {
   const [descripcion, setDescripcion] = useState();
   const [debe, setDebe] = useState(0);
   const [haber, setHaber] = useState(0);
+  const [box, setBox] = useState();
   const [formData, setFormData] = useState();
 
   //usestate para mostrar y grabar el saldo en forma dinamica
@@ -174,50 +175,65 @@ export default function HomePage() {
       if (
         fecha?.length > 0 &&
         descripcion?.length > 0 &&
-        debe?.length > 0 &&
-        haber?.length > 0
+        //debe?.length > 0 &&
+        //haber?.length > 0 &&
+        box === true
       ) {
-        if (validarFechas2(fecha, fechaFija)) {
-          await MySwal.fire({
-            title: <strong>ADVERTENCIA</strong>,
-            html: <i>Está seguro de que desea grabar un nuevo registro?</i>,
-            icon: "warning",
-            showCancelButton: true,
-            cancelButtonText: "Cancelar",
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: `Grabar`,
-          }).then(async (value) => {
-            if (value.isConfirmed) {
-              const guardarRow = await axios.post(url.rows, formData);
+        if (
+          (debe?.length > 0 && haber?.length === 0) ||
+          (debe?.length === 0 && haber?.length > 0)
+        ) {
+          console.log("seguir");
+          if (validarFechas2(fecha, fechaFija)) {
+            await MySwal.fire({
+              title: <strong>ADVERTENCIA</strong>,
+              html: <i>Está seguro de que desea grabar un nuevo registro?</i>,
+              icon: "warning",
+              showCancelButton: true,
+              cancelButtonText: "Cancelar",
+              confirmButtonColor: "#3085d6",
+              cancelButtonColor: "#d33",
+              confirmButtonText: `Grabar`,
+            }).then(async (value) => {
+              if (value.isConfirmed) {
+                const guardarRow = await axios.post(url.rows, formData);
 
-              if (guardarRow) {
-                await axios.put(url.position, { fecha: fecha });
-                setState(true);
+                if (guardarRow) {
+                  await axios.put(url.position, { fecha: fecha });
+                  setState(true);
+                }
+
+                alert("success", "CORRECTO! Se guardaron los cambios");
+              } else {
+                alert("error", "ERROR. No se guardaron los cambios");
               }
-
-              alert("success", "CORRECTO! Se guardaron los cambios");
-            } else {
-              alert("error", "ERROR. No se guardaron los cambios");
-            }
-          });
+            });
+          } else {
+            await MySwal.fire({
+              title: <strong>ERROR</strong>,
+              html: (
+                <i>
+                  La fecha ingresada debe ser correlativa con la del último
+                  registro
+                </i>
+              ),
+              icon: "warning",
+              showCancelButton: false,
+              confirmButtonColor: "#d33",
+              confirmButtonText: `Entendido`,
+            });
+          }
         } else {
-          await MySwal.fire({
-            title: <strong>ERROR</strong>,
-            html: (
-              <i>
-                La fecha ingresada debe ser correlativa con la del último
-                registro
-              </i>
-            ),
-            icon: "warning",
-            showCancelButton: false,
-            confirmButtonColor: "#d33",
-            confirmButtonText: `Entendido`,
-          });
+          alert(
+            "error",
+            "Cada movimiento debe tener únicamente un ingreso o un egreso. No puede tener ambos ni ninguno."
+          );
         }
       } else {
-        console.log("falta");
+        alert(
+          "error",
+          "ERROR. Debe completar todos los campos antes de grabar."
+        );
       }
     }
   };
@@ -247,6 +263,7 @@ export default function HomePage() {
           setDebe={setDebe}
           setHaber={setHaber}
           sendData={sendData}
+          setBox={setBox}
         />
 
         <MainTable
@@ -295,7 +312,7 @@ export default function HomePage() {
               document={<PDF data={data} />}
               fileName="planilla-gastos.pdf"
             >
-              <Button variant='success'>Descargar PDF</Button>
+              <Button variant="success">Descargar PDF</Button>
             </PDFDownloadLink>
           )}
         </div>

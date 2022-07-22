@@ -11,6 +11,7 @@ export default function MainForm(props) {
     setDescripcion,
     setDebe,
     setHaber,
+    setBox,
     sendData,
   } = props;
 
@@ -56,10 +57,14 @@ export default function MainForm(props) {
         </Row>
 
         <Form.Group className="mb-3">
-          <Form.Check type="checkbox" label="No soy un robot" />
+          <Form.Check
+            type="checkbox"
+            label="No soy un robot"
+            onChange={(e) => setBox(e.target.checked)}
+          />
         </Form.Group>
 
-        <Button variant="secondary" type="submit" onClick={(e) => sendData(e)}>
+        <Button variant="primary" type="submit" onClick={(e) => sendData(e)}>
           Agregar
         </Button>
       </Form>
