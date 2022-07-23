@@ -6,6 +6,9 @@ _Esta simple pero poderosa App permite llevar los movimientos diarios de caja de
 
 _Es posible agregar registros, determinar totales y grabar saldos. Y como bonus, se puede descargar la tabla en formato PDF!_
 
+## Despliegue
+
+Netlify: [https://clinquant-lollipop-5a9d2f.netlify.app/](https://clinquant-lollipop-5a9d2f.netlify.app/)
 
 <!-- CONTACT -->
 ## Contacto
