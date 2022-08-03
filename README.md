@@ -13,11 +13,15 @@ Es posible agregar registros, determinar totales y grabar saldos. Y como bonus, 
 ## Imágenes del proyecto
 ![Gral1](https://github.com/momr01/mern-planilla-gastos-client/blob/main/public/proyecto-actual/general1.PNG)
 * * *
+* * *
 ![Gral2](https://github.com/momr01/mern-planilla-gastos-client/blob/main/public/proyecto-actual/general2.PNG)
+* * *
 * * *
 ![Gral3](https://github.com/momr01/mern-planilla-gastos-client/blob/main/public/proyecto-actual/general3.PNG)
 * * *
+* * *
 ![Gral4](https://github.com/momr01/mern-planilla-gastos-client/blob/main/public/proyecto-actual/general4.PNG)
+* * *
 * * *
 ![PDF](https://github.com/momr01/mern-planilla-gastos-client/blob/main/public/proyecto-actual/pdf.PNG)
 
